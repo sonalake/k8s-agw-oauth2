@@ -1,0 +1,27 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: agw
+  cloud:
+    gateway:
+      default-filters:
+#        - TokenRelay
+        - RemoveRequestHeader=Cookie
+      routes:
+        - id: auth-certs
+          uri: ${JWKS_URI}
+          predicates:
+            - Path=/auth-certs
+          filters:
+            - RewritePath=/auth-certs, ${JWKS_PATH}
+        - id: users
+          uri: http://users:9001
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - RewritePath=/api/users, /
+        - id: portal
+          uri: http://portal:80
+          predicates:
+            - Path=/**

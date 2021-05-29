@@ -1,0 +1,14 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: users
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${JWKS_URI:http://localhost:8080/auth/realms/msagw/protocol/openid-connect/certs}
+
+msagw:
+  rolesClaim: roles

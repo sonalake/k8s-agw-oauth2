@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: agw
+  labels:
+    app-service: agw
+spec:
+  selector:
+    matchLabels:
+      app-service: agw
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app-service: agw
+    spec:
+      containers:
+        - name: agw
+          image: msagw-agw
+          imagePullPolicy: Never
+          ports:
+            - name: http
+              containerPort: 9000
+              protocol: TCP
+          env:
+            - name: JWKS_URI
+              value: http://192.168.99.1:8080
+            - name: JWKS_PATH
+              value: /auth/realms/msagw/protocol/openid-connect/certs

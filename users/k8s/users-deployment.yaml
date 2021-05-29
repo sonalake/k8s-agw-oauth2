@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: users
+  labels:
+    app-service: users
+spec:
+  selector:
+    matchLabels:
+      app-service: users
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app-service: users
+    spec:
+      containers:
+        - name: users
+          image: msagw-users
+          imagePullPolicy: Never
+          ports:
+            - name: http
+              containerPort: 9001
+              protocol: TCP
+          env:
+            - name: JWKS_URI
+              value: http://agw:9000/auth-certs
