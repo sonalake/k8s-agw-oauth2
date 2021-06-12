@@ -6,11 +6,10 @@ spring:
   cloud:
     gateway:
       default-filters:
-#        - TokenRelay
-        - RemoveRequestHeader=Cookie
+        - TokenRelay
       routes:
         - id: auth-certs
-          uri: ${JWKS_URI}
+          uri: ${OAUTH_URI_ROOT}
           predicates:
             - Path=/auth-certs
           filters:
@@ -25,3 +24,19 @@ spring:
           uri: http://portal:80
           predicates:
             - Path=/**
+  security:
+    oauth2:
+      client:
+        provider:
+          iam:
+            token-uri: ${OAUTH_URI_ROOT}/auth/realms/msagw/protocol/openid-connect/token
+            authorization-uri: ${OAUTH_URI_ROOT}/auth/realms/msagw/protocol/openid-connect/auth
+            userinfo-uri: ${OAUTH_URI_ROOT}/auth/realms/msagw/protocol/openid-connect/userinfo
+            user-name-attribute: preferred_username
+        registration:
+          iam:
+            provider: iam
+            client-id: App
+            client-secret: f4f76724-2a84-4cd8-83e5-5a5af23a8418
+            authorization-grant-type: authorization_code
+            redirect-uri: ${OAUTH_REDIRECT_URI}

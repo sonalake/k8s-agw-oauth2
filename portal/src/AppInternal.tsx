@@ -8,7 +8,13 @@ export function AppInternal() {
 
   return (
     <>
-      <header><Link to="/app">App</Link></header>
+      <header>
+        <Link to="/app">App</Link>
+        <form action="/logout" method="POST">
+          <input type="hidden" id="var1" name="var1" value=""/>
+          <button type='submit'>Logout</button>
+        </form>
+      </header>
       <aside>
         <ul>
           <li>

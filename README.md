@@ -1,9 +1,9 @@
-### Starg minikube
+### Start minikube
 ```
 minikube start --vm-driver virtualbox --host-only-cidr 192.168.XX.XX/24
 ```
 
-### Check minikube host ip - should be used to reach e.g. Keycloak
+### Check minikube host ip - should be used to reach host services e.g. Keycloak
 ``` 
 minikube ssh
 ping host.minikube.internal

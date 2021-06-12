@@ -10,6 +10,10 @@ header {
   grid-column-end: 3;
   background-color: #1b5ca2;
   padding: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 aside {

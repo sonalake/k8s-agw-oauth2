@@ -1,0 +1,39 @@
+logging:
+  level:
+    root: INFO
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+        - RemoveRequestHeader=Cookie
+      routes:
+        - id: auth-certs
+          uri: http://localhost:8080
+          predicates:
+            - Path=/auth-certs
+          filters:
+            - RewritePath=/auth-certs, /auth/realms/msagw/protocol/openid-connect/certs
+        - id: users
+          uri: http://localhost:9001
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - RewritePath=/api/users, /
+        - id: portal
+          uri: http://localhost:3000
+          predicates:
+            - Path=/**
+  security:
+    oauth2:
+      client:
+        provider:
+          iam:
+            token-uri: ${JWKS_URI}/siemano
+#            token-uri: http://localhost:8080/auth/realms/msagw/protocol/openid-connect/token
+            authorization-uri: ${JWKS_URI}/siemano
+#            authorization-uri: http://localhost:8080/auth/realms/msagw/protocol/openid-connect/auth
+            userinfo-uri: http://localhost:8080/auth/realms/msagw/protocol/openid-connect/userinfo
+        registration:
+          iam:
+            redirect-uri: "http://localhost:9000/login/oauth2/code/iam"
