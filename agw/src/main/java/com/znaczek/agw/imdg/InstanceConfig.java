@@ -16,12 +16,10 @@ public class InstanceConfig {
   @Bean
   @Profile("default")
   public Config defaultConfig() {
-    Config config = new Config();
-    NetworkConfig networkConfig = config.getNetworkConfig();
-    networkConfig.getJoin().getMulticastConfig().setEnabled(false);
-    networkConfig.getJoin().getTcpIpConfig().setEnabled(false);
-    networkConfig.getJoin().getKubernetesConfig().setEnabled(true);
-    networkConfig.getJoin().getKubernetesConfig()
+    Config config = commonConfig();
+    config.getNetworkConfig().getJoin().getTcpIpConfig().setEnabled(false);
+    config.getNetworkConfig().getJoin().getKubernetesConfig().setEnabled(true);
+    config.getNetworkConfig().getJoin().getKubernetesConfig()
       .setProperty("service-dns", hazelcastDns);
     return config;
   }
@@ -29,11 +27,18 @@ public class InstanceConfig {
   @Bean
   @Profile("dev")
   public Config devConfig() {
+    Config config = commonConfig();
+    config.getNetworkConfig().getJoin().getTcpIpConfig().setEnabled(true);
+    config.getNetworkConfig().getJoin().getTcpIpConfig().addMember("127.0.0.1");
+    return config;
+  }
+
+  private Config commonConfig() {
     Config config = new Config();
     NetworkConfig networkConfig = config.getNetworkConfig();
     networkConfig.getJoin().getMulticastConfig().setEnabled(false);
-    networkConfig.getJoin().getTcpIpConfig().setEnabled(true);
-    networkConfig.getJoin().getTcpIpConfig().addMember("127.0.0.1");
     return config;
   }
+
+
 }

@@ -43,8 +43,6 @@ app.use(express.static(path.join(__dirname, '..', 'build')));
 
 app.get(['/app', '/app/', '/app/*'], (req, res) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');
-
-  console.log(req.headers);
   jwt.verify(token || '', getKey, undefined, (error) => {
     if (error) {
       res.set('WWW-Authenticate', `Bearer error=${error.message}`);
@@ -56,6 +54,7 @@ app.get(['/app', '/app/', '/app/*'], (req, res) => {
 });
 
 app.get('/*', (req: any, res: any) => {
+  console.log(req.headers);
   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
 
