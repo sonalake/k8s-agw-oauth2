@@ -40,3 +40,8 @@ spring:
             client-secret: f4f76724-2a84-4cd8-83e5-5a5af23a8418
             authorization-grant-type: authorization_code
             redirect-uri: ${OAUTH_REDIRECT_URI}
+
+msagw:
+  hazelcast-dns: agv-hazelcast.default.svc.cluster.local
+  oauth2:
+    logout-uri: ${OAUTH_URI_ROOT}/auth/realms/Truata/protocol/openid-connect/logout

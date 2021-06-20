@@ -21,9 +21,8 @@ spec:
           image: msagw-agw
           imagePullPolicy: Never
           ports:
-            - name: http
-              containerPort: 9000
-              protocol: TCP
+            - containerPort: 9000
+            - containerPort: 5701
           env:
             - name: OAUTH_URI_ROOT
               value: http://192.168.99.1:8080

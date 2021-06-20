@@ -7,10 +7,11 @@ metadata:
   name: agw
 spec:
   type: ClusterIP
+  selector:
+    app-service: agw
   ports:
     - name: http
       port: 9000
       targetPort: 9000
       protocol: TCP
-  selector:
-    app-service: agw
+
