@@ -15,14 +15,10 @@ import reactor.core.publisher.Mono;
 import java.net.URI;
 
 /**
+ * TODO
  * - logout z keykloack
+ * - session timeout
  * - logout from UI when session ends
- * - ogarnąć login?error
- * - oauth2 repositories distributed (securityContextRepository, authorizedClientRepository, authorizationRequestRepository, requesstCache)
- * securityContextRepository -> default WebSession, nie trzeba customowego
- * WebSessionServerRequestCache -> default WebSession, nie trzeba customowego
- *  -> default WebSessionOAuth2ServerAuthorizationRequestRepository
- *  -> trzeba dodać WebSessionServerOAuth2AuthorizedClientRepository
  */
 @Configuration
 @EnableWebFluxSecurity

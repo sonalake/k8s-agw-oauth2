@@ -1,7 +1,6 @@
 package com.znaczek.agw.filters;
 
 
-import com.znaczek.agw.auth.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -22,8 +21,6 @@ public class Global401Filter {
 
   // /oauth2/authorization is hardcoded in spring security reactive
   private final String uriBase = "/oauth2/authorization/iam";
-
-  private final AuthService authService;
 
   @Bean
   public GlobalFilter postGlobalFilter() {
