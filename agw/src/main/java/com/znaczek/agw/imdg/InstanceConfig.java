@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class InstanceConfig {
 
-  @Value("msagw:hazelcast-dns")
+  @Value("${msagw.hazelcast-dns}")
   private String hazelcastDns;
 
   @Bean

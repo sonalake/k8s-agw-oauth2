@@ -14,12 +14,7 @@ import reactor.core.publisher.Mono;
 
 import java.net.URI;
 
-/**
- * TODO
- * - logout z keykloack
- * - session timeout
- * - logout from UI when session ends
- */
+
 @Configuration
 @EnableWebFluxSecurity
 @RequiredArgsConstructor

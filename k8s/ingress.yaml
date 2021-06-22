@@ -13,3 +13,10 @@ spec:
             backend:
               serviceName: agw
               servicePort: 9000
+    - host: hz.k8s.test
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: hz-man
+              servicePort: 8080

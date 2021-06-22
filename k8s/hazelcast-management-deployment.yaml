@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: hz-man
+  labels:
+    app-service: hz-man
+spec:
+  selector:
+    matchLabels:
+      app-service: hz-man
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app-service: hz-man
+    spec:
+      containers:
+        - name: hz-man
+          image: hazelcast/management-center
+          ports:
+            - containerPort: 8080
