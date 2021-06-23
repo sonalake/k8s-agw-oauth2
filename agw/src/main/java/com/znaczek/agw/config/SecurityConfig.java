@@ -1,6 +1,7 @@
 package com.znaczek.agw.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,9 @@ import java.net.URI;
 @EnableWebFluxSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
+  @Value("${spring.security.oauth2.client.provider.iam.logout-uri}")
+  private String logoutUrl;
 
   @Bean
   public ServerOAuth2AuthorizedClientRepository authorizedClientRepository() {
@@ -41,7 +45,7 @@ public class SecurityConfig {
         .logoutSuccessHandler((webExchange, authentication) -> {
           ServerHttpResponse response = webExchange.getExchange().getResponse();
           response.setStatusCode(HttpStatus.FOUND);
-          response.getHeaders().setLocation(URI.create("/"));
+          response.getHeaders().setLocation(URI.create(logoutUrl));
           return Mono.empty();
         })
       )

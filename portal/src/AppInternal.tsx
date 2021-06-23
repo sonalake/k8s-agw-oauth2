@@ -2,16 +2,17 @@ import React from 'react';
 import './App.scss';
 import { Link, NavLink, Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Users } from './conntainers/users/Users';
+import { Session } from './components/session/Session';
 
 export function AppInternal() {
   let { path } = useRouteMatch();
 
   return (
     <>
+      <Session/>
       <header>
         <Link to="/app">App</Link>
         <form action="/logout" method="POST">
-          <input type="hidden" id="var1" name="var1" value=""/>
           <button type='submit'>Logout</button>
         </form>
       </header>

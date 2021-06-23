@@ -3,12 +3,12 @@
     "start": "minikube start --vm-driver virtualbox --host-only-cidr 192.168.XX.XX/24",
     "docker-context": "eval $(minikube docker-env)",
     "k8s": "kubectl apply -f k8s",
-    "k8s:agw": "cd agw && npm run k8s && cd ..",
-    "build:agw": "./gradlew clean build && cd agw && docker build -f Dockerfile -t msagw-agw build/libs && npm run k8s && cd ..",
-    "k8s:portal": "cd portal && npm run k8s && cd ..",
-    "build:portal": "cd portal && docker build -t msagw-portal . && npm run k8s && cd ..",
-    "k8s:users": "cd users && npm run k8s && cd ..",
-    "build:users": "./gradlew clean build && cd users && docker build -f Dockerfile -t msagw-users build/libs && npm run k8s && cd .."
+    "k8s:agw": "cd agw && kubectl apply -f k8s && cd ..",
+    "build:agw": "./gradlew clean build && cd agw && docker build -f Dockerfile -t msagw-agw build/libs && kubectl apply -f k8s && cd ..",
+    "k8s:portal": "cd portal && kubectl apply -f k8s && cd ..",
+    "build:portal": "cd portal && docker build -t msagw-portal . && kubectl apply -f k8s && cd ..",
+    "k8s:users": "cd users && kubectl apply -f k8s && cd ..",
+    "build:users": "./gradlew clean build && cd users && docker build -f Dockerfile -t msagw-users build/libs && kubectl apply -f k8s && cd .."
   },
   "private": true,
   "workspaces": ["portal"]

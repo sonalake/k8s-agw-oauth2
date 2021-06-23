@@ -3,6 +3,7 @@ import './App.scss';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { AppInternal } from './AppInternal';
+import { Session } from './components/session/Session';
 
 const queryClient = new QueryClient({
   defaultOptions: {

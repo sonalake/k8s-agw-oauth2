@@ -33,15 +33,17 @@ spring:
             authorization-uri: ${OAUTH_URI_ROOT}/auth/realms/msagw/protocol/openid-connect/auth
             userinfo-uri: ${OAUTH_URI_ROOT}/auth/realms/msagw/protocol/openid-connect/userinfo
             user-name-attribute: preferred_username
+            logout-uri: ${OAUTH_URI_ROOT}/auth/realms/msagw/protocol/openid-connect/logout?redirect_uri=${APP_HOST}
         registration:
           iam:
             provider: iam
             client-id: App
             client-secret: f4f76724-2a84-4cd8-83e5-5a5af23a8418
             authorization-grant-type: authorization_code
-            redirect-uri: ${OAUTH_REDIRECT_URI}
-
+            redirect-uri: ${APP_HOST}/login/oauth2/code/iam
 msagw:
+  host: ${APP_HOST}
   hazelcast-dns: agv-hazelcast.default.svc.cluster.local
+  session-timeout: ${SESSION_TIMEOUT}
   oauth2:
     logout-uri: ${OAUTH_URI_ROOT}/auth/realms/Truata/protocol/openid-connect/logout

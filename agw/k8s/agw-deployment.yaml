@@ -24,9 +24,11 @@ spec:
             - containerPort: 9000
             - containerPort: 5701
           env:
+            - name: APP_HOST
+              value: http://k8s.test
             - name: OAUTH_URI_ROOT
               value: http://192.168.99.1:8080
             - name: JWKS_PATH
               value: /auth/realms/msagw/protocol/openid-connect/certs
-            - name: OAUTH_REDIRECT_URI
-              value: http://k8s.test/login/oauth2/code/iam
+            - name: SESSION_TIMEOUT
+              value: "1800"

@@ -32,9 +32,12 @@ spring:
             token-uri: http://localhost:8080/auth/realms/msagw/protocol/openid-connect/token
             authorization-uri: http://localhost:8080/auth/realms/msagw/protocol/openid-connect/auth
             userinfo-uri: http://localhost:8080/auth/realms/msagw/protocol/openid-connect/userinfo
+            logout-uri: http://localhost:8080/auth/realms/msagw/protocol/openid-connect/logout?redirect_uri=http://localhost:9000
         registration:
           iam:
             redirect-uri: "http://localhost:9000/login/oauth2/code/iam"
 msagw:
+  host: http://localhost:9000
+  session-timeout: 10
   oauth2:
     logout-uri: http://localhost:8080/auth/realms/Truata/protocol/openid-connect/logout
