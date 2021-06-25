@@ -9,7 +9,7 @@ spring:
         - TokenRelay
       routes:
         - id: auth-certs
-          uri: ${OAUTH_URI_ROOT}
+          uri: ${JWKS_HOST}
           predicates:
             - Path=/auth-certs
           filters:
@@ -29,21 +29,20 @@ spring:
       client:
         provider:
           iam:
-            token-uri: ${OAUTH_URI_ROOT}/auth/realms/msagw/protocol/openid-connect/token
-            authorization-uri: ${OAUTH_URI_ROOT}/auth/realms/msagw/protocol/openid-connect/auth
-            userinfo-uri: ${OAUTH_URI_ROOT}/auth/realms/msagw/protocol/openid-connect/userinfo
-            user-name-attribute: preferred_username
-            logout-uri: ${OAUTH_URI_ROOT}/auth/realms/msagw/protocol/openid-connect/logout?redirect_uri=${APP_HOST}
+            token-uri: ${TOKEN_URI}
+            authorization-uri: ${AUTHORIZATION_URI}
+            logout-uri: ${LOGOUT_URI}
         registration:
           iam:
             provider: iam
-            client-id: App
-            client-secret: f4f76724-2a84-4cd8-83e5-5a5af23a8418
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
             authorization-grant-type: authorization_code
             redirect-uri: ${APP_HOST}/login/oauth2/code/iam
+            scope: ${OAUTH_SCOPE}
 msagw:
   host: ${APP_HOST}
   hazelcast-dns: agv-hazelcast.default.svc.cluster.local
+  email-claim: ${EMAIL_CLAIM}
+  roles-claim: ${ROLES_CLAIM}
   session-timeout: ${SESSION_TIMEOUT}
-  oauth2:
-    logout-uri: ${OAUTH_URI_ROOT}/auth/realms/Truata/protocol/openid-connect/logout

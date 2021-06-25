@@ -1,4 +1,4 @@
-package com.znaczek.agw.config;
+package com.znaczek.agw.session;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;

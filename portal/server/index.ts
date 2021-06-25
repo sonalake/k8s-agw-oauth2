@@ -21,7 +21,7 @@ const stream: StreamOptions = {
   write: (message) => logger.http(message),
 };
 
-const jwksUri = process.env.JWKS_URI || 'http://localhost:8080/auth/realms/msagw/protocol/openid-connect/certs';
+const jwksUri = process.env.JWKS_URI || 'http://localhost:9000/auth-certs';
 logger.info(JSON.stringify({jwksUri}));
 const client = jwksClient({jwksUri});
 const getKey = (header: any, callback: any) => {

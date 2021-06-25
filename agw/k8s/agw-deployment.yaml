@@ -25,10 +25,62 @@ spec:
             - containerPort: 5701
           env:
             - name: APP_HOST
-              value: http://k8s.test
-            - name: OAUTH_URI_ROOT
-              value: http://192.168.99.1:8080
+              valueFrom:
+                configMapKeyRef:
+                  name: agw
+                  key: APP_HOST
+            - name: JWKS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: agw
+                  key: JWKS_HOST
             - name: JWKS_PATH
-              value: /auth/realms/msagw/protocol/openid-connect/certs
+              valueFrom:
+                configMapKeyRef:
+                  name: agw
+                  key: JWKS_PATH
             - name: SESSION_TIMEOUT
-              value: "1800"
+              valueFrom:
+                configMapKeyRef:
+                  name: agw
+                  key: SESSION_TIMEOUT
+            - name: TOKEN_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: agw
+                  key: TOKEN_URI
+            - name: AUTHORIZATION_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: agw
+                  key: AUTHORIZATION_URI
+            - name: EMAIL_CLAIM
+              valueFrom:
+                configMapKeyRef:
+                  name: agw
+                  key: EMAIL_CLAIM
+            - name: ROLES_CLAIM
+              valueFrom:
+                configMapKeyRef:
+                  name: agw
+                  key: ROLES_CLAIM
+            - name: LOGOUT_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: agw
+                  key: LOGOUT_URI
+            - name: CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: agw
+                  key: CLIENT_ID
+            - name: CLIENT_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: agw
+                  key: CLIENT_SECRET
+            - name: OAUTH_SCOPE
+              valueFrom:
+                configMapKeyRef:
+                  name: agw
+                  key: OAUTH_SCOPE

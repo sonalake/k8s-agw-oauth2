@@ -25,7 +25,7 @@ public class InstanceConfig {
   }
 
   @Bean
-  @Profile("dev")
+  @Profile("!default")
   public Config devConfig() {
     Config config = commonConfig();
     config.getNetworkConfig().getJoin().getTcpIpConfig().setEnabled(true);
