@@ -23,8 +23,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class Global401Filter {
 
-  // /oauth2/authorization is hardcoded in spring security reactive
-  private final String uriBase = "/oauth2/authorization/iam";
   private final String [] htmlAcceptTypes = {"text/html","application/xhtml+xml"};
 
   @Bean

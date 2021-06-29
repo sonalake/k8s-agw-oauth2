@@ -26,4 +26,7 @@ spec:
               protocol: TCP
           env:
             - name: JWKS_URI
-              value: http://agw:9000/auth-certs
+              valueFrom:
+                configMapKeyRef:
+                  name: msagw
+                  key: JWKS_URI

@@ -9,8 +9,6 @@ data:
   SESSION_TIMEOUT: "1800"
   TOKEN_URI: http://192.168.99.1:8080/auth/realms/msagw/protocol/openid-connect/token
   AUTHORIZATION_URI: http://192.168.99.1:8080/auth/realms/msagw/protocol/openid-connect/auth
-  EMAIL_CLAIM: email
-  ROLES_CLAIM: roles
   LOGOUT_URI: http://192.168.99.1:8080/auth/realms/msagw/protocol/openid-connect/logout?redirect_uri=https://k8s.test
   CLIENT_ID: App
   CLIENT_SECRET: f4f76724-2a84-4cd8-83e5-5a5af23a8418

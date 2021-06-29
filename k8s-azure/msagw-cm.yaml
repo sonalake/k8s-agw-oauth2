@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: msagw
+data:
+  EMAIL_CLAIM: name
+  ROLES_CLAIM: extension_PeapRoles
+  JWKS_URI: http://agw:9000/auth-certs

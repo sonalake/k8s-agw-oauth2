@@ -57,12 +57,12 @@ spec:
             - name: EMAIL_CLAIM
               valueFrom:
                 configMapKeyRef:
-                  name: agw
+                  name: msagw
                   key: EMAIL_CLAIM
             - name: ROLES_CLAIM
               valueFrom:
                 configMapKeyRef:
-                  name: agw
+                  name: msagw
                   key: ROLES_CLAIM
             - name: LOGOUT_URI
               valueFrom:
