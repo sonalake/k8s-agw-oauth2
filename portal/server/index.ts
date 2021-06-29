@@ -1,63 +1,24 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import * as path from 'path';
-import morgan, { StreamOptions } from 'morgan';
-import jwt from 'jsonwebtoken';
-import jwksClient, { CertSigningKey, RsaSigningKey } from 'jwks-rsa';
-import winston from 'winston';
+import { Log } from './logger';
+import { JwtValidator } from './jwt-validator';
+import { getIndexHtml } from './content';
 
-const logger = winston.createLogger({
-  level: 'debug',
-  format: winston.format.combine(
-    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
-    winston.format.printf(
-      (info) => `${info.timestamp} ${info.level}: ${info.message}`,
-    ),
-  ),
-  transports: [
-    new winston.transports.Console(),
-  ],
-});
-const stream: StreamOptions = {
-  write: (message) => logger.http(message),
-};
 
-const jwksUri = process.env.JWKS_URI || 'http://localhost:9000/auth-certs';
-logger.info(JSON.stringify({jwksUri}));
-const client = jwksClient({jwksUri});
-const getKey = (header: any, callback: any) => {
-  client.getSigningKey(header.kid, (err, key) => {
-    let signingKey = null;
-    if (key) {
-      signingKey = (key as CertSigningKey).publicKey || (key as RsaSigningKey).rsaPublicKey;
-    } else {
-      logger.error('Couldnt validate jwt');
-    }
-    callback(null, signingKey);
-  });
+const log = new Log();
+const indexHtml = getIndexHtml();
+const jwtValidator = new JwtValidator(log.logger, process.env.JWKS_URI || 'http://localhost:9000/auth-certs');
+
+const serve = (req: Request, res: Response) => {
+  res.send(indexHtml);
 }
 
 const app = express();
-app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :user-agent', { stream }));
+app.use(log.middleware);
+app.use(express.static(path.join(__dirname, '..', 'build'), {index: false}));
 
-app.use(express.static(path.join(__dirname, '..', 'build')));
-
-app.get(['/app', '/app/', '/app/*'], (req, res) => {
-  const token = req.header('Authorization')?.replace('Bearer ', '');
-  jwt.verify(token || '', getKey, undefined, (error) => {
-    if (error) {
-      res.set('WWW-Authenticate', `Bearer error=${error.message}`);
-      res.status(401).send(null);
-    } else{
-      res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
-    }
-  });
-});
-
-app.get('/*', (req: any, res: any) => {
-  console.log(req.headers);
-  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
-});
-
+app.get(/^\/.+?\/app($|\/.*)/, jwtValidator.validator, serve);
+app.get('/*', serve);
 
 const port = 3000;
 app.listen(port, () => {

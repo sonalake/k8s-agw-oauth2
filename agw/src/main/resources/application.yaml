@@ -46,3 +46,4 @@ msagw:
   email-claim: ${EMAIL_CLAIM}
   roles-claim: ${ROLES_CLAIM}
   session-timeout: ${SESSION_TIMEOUT}
+  available-locales: ${AVAILABLE_LOCALES}

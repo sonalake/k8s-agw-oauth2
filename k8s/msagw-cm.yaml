@@ -6,3 +6,4 @@ data:
   EMAIL_CLAIM: email
   ROLES_CLAIM: roles
   JWKS_URI: http://agw:9000/auth-certs
+  AVAILABLE_LOCALES: en;en-gb,br;pt-br

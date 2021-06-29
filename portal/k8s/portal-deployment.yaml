@@ -30,3 +30,8 @@ spec:
                 configMapKeyRef:
                   name: msagw
                   key: JWKS_URI
+            - name: REACT_APP_AVAILABLE_LANGS
+              valueFrom:
+                configMapKeyRef:
+                  name: msagw
+                  key: AVAILABLE_LOCALES

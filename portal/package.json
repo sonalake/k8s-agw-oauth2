@@ -18,6 +18,7 @@
     "@types/winston": "^2.4.4",
     "express": "^4.17.1",
     "express-winston": "^4.1.0",
+    "i18next": "^20.3.2",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^2.0.3",
     "morgan": "^1.10.0",
@@ -25,6 +26,7 @@
     "nodemon": "^2.0.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-i18next": "^11.11.1",
     "react-query": "^3.16.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
@@ -36,7 +38,7 @@
   "scripts": {
     "start": "react-scripts start",
     "server": "ts-node --project server/tsconfig.json --transpile-only server/index.ts",
-    "server-dev": "nodemon --watch \"server/**\" --ext \"ts,json\" --ignore \"server/**/*.spec.ts\" --exec \"ts-node server/index.ts\"",
+    "server-dev": "export REACT_APP_AVAILABLE_LANGS='en;en-gb,br;pt-br' && nodemon --watch \"server/**\" --ext \"ts,json\" --ignore \"server/**/*.spec.ts\" --exec \"ts-node server/index.ts\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

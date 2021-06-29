@@ -37,9 +37,10 @@ spring:
             redirect-uri: http://localhost:9000/login/oauth2/code/iam
             client-id: App
             client-secret: f4f76724-2a84-4cd8-83e5-5a5af23a8418
-
+            scope: email,offline_access
 msagw:
   email-claim: email
   roles-claim: roles
   host: http://localhost:9000
   session-timeout: 20
+  available-locales: en;en-gb,br;pt-br

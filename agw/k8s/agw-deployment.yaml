@@ -84,3 +84,8 @@ spec:
                 configMapKeyRef:
                   name: agw
                   key: OAUTH_SCOPE
+            - name: AVAILABLE_LOCALES
+              valueFrom:
+                configMapKeyRef:
+                  name: msagw
+                  key: AVAILABLE_LOCALES

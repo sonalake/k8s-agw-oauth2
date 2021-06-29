@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { usersService } from '../../api/users.service';
+import { Trans } from 'react-i18next';
 
 export function Users() {
 
@@ -8,12 +9,12 @@ export function Users() {
 
   return (
     <>
-      <h1>Users</h1>
+      <h1><Trans>USERS</Trans></h1>
       <table>
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Name</th>
+            <th><Trans>ID</Trans></th>
+            <th><Trans>NAME</Trans></th>
           </tr>
         </thead>
         <tbody>
