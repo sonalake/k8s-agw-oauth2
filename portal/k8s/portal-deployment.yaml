@@ -28,10 +28,10 @@ spec:
             - name: JWKS_URI
               valueFrom:
                 configMapKeyRef:
-                  name: msagw
+                  name: msagw-oauth
                   key: JWKS_URI
             - name: REACT_APP_AVAILABLE_LANGS
               valueFrom:
                 configMapKeyRef:
-                  name: msagw
+                  name: msagw-system
                   key: AVAILABLE_LOCALES

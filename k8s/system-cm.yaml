@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: msagw-system
+data:
+  APP_HOST: https://k8s.test
+  SESSION_TIMEOUT: "1800"
+  AVAILABLE_LOCALES: en;en-gb,br;pt-br

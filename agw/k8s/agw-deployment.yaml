@@ -27,65 +27,65 @@ spec:
             - name: APP_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: agw
+                  name: msagw-system
                   key: APP_HOST
+            - name: SESSION_TIMEOUT
+              valueFrom:
+                configMapKeyRef:
+                  name: msagw-system
+                  key: SESSION_TIMEOUT
+            - name: AVAILABLE_LOCALES
+              valueFrom:
+                configMapKeyRef:
+                  name: msagw-system
+                  key: AVAILABLE_LOCALES
             - name: JWKS_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: agw
+                  name: msagw-oauth
                   key: JWKS_HOST
             - name: JWKS_PATH
               valueFrom:
                 configMapKeyRef:
-                  name: agw
+                  name: msagw-oauth
                   key: JWKS_PATH
-            - name: SESSION_TIMEOUT
-              valueFrom:
-                configMapKeyRef:
-                  name: agw
-                  key: SESSION_TIMEOUT
             - name: TOKEN_URI
               valueFrom:
                 configMapKeyRef:
-                  name: agw
+                  name: msagw-oauth
                   key: TOKEN_URI
             - name: AUTHORIZATION_URI
               valueFrom:
                 configMapKeyRef:
-                  name: agw
+                  name: msagw-oauth
                   key: AUTHORIZATION_URI
             - name: EMAIL_CLAIM
               valueFrom:
                 configMapKeyRef:
-                  name: msagw
+                  name: msagw-oauth
                   key: EMAIL_CLAIM
             - name: ROLES_CLAIM
               valueFrom:
                 configMapKeyRef:
-                  name: msagw
+                  name: msagw-oauth
                   key: ROLES_CLAIM
             - name: LOGOUT_URI
               valueFrom:
                 configMapKeyRef:
-                  name: agw
+                  name: msagw-oauth
                   key: LOGOUT_URI
             - name: CLIENT_ID
               valueFrom:
                 configMapKeyRef:
-                  name: agw
+                  name: msagw-oauth
                   key: CLIENT_ID
             - name: CLIENT_SECRET
               valueFrom:
                 configMapKeyRef:
-                  name: agw
+                  name: msagw-oauth
                   key: CLIENT_SECRET
             - name: OAUTH_SCOPE
               valueFrom:
                 configMapKeyRef:
-                  name: agw
+                  name: msagw-oauth
                   key: OAUTH_SCOPE
-            - name: AVAILABLE_LOCALES
-              valueFrom:
-                configMapKeyRef:
-                  name: msagw
-                  key: AVAILABLE_LOCALES

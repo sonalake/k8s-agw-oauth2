@@ -28,10 +28,10 @@ spec:
             - name: JWKS_URI
               valueFrom:
                 configMapKeyRef:
-                  name: msagw
+                  name: msagw-oauth
                   key: JWKS_URI
             - name: ROLES_CLAIM
               valueFrom:
                 configMapKeyRef:
-                  name: msagw
+                  name: msagw-oauth
                   key: ROLES_CLAIM
