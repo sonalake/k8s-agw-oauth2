@@ -1,6 +1,6 @@
 ### Start minikube
 ```
-minikube start --vm-driver virtualbox --host-only-cidr 192.168.XX.XX/24
+minikube start --kubernetes-version=v1.21.3 --vm-driver virtualbox --host-only-cidr 192.168.XX.XX/24
 ```
 
 ### Check minikube host ip - should be used to reach host services e.g. Keycloak

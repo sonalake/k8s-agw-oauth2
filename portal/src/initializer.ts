@@ -5,27 +5,34 @@ interface InitData {
   lang: string
 }
 
-export const initialize = (): InitData => {
-  let lang = window.location.pathname.match(/^\/(.*?)(\/|$)/)?.[1] || '';
-  const availableLangs: {[key: string]: string} = SETTINGS.AVAILABLE_LANGUAGES.split(',').reduce((acc, curr) => {
+interface AVAILABLE_LANGS {[key: string]: string};
+
+const getAvailableLanguages = (): AVAILABLE_LANGS => {
+  return SETTINGS.AVAILABLE_LANGUAGES.split(',').reduce((acc, curr) => {
     const a = curr.split(';');
     return {
       ...acc,
       [a[0]]: a[1]
     }
   }, {})
+}
 
-  const search = new URLSearchParams(window.location.search);
-  const logout = search.get('logout') === 'true';
-  if (logout) {
-    const logoutLang = search.get('lang') || '';
-    window.location.href = window.location.origin + '/' + (Object.keys(availableLangs).includes(logoutLang) ? logoutLang : 'en');
-    return {
-      init: false,
-      lang
-    };
-  } else if (!lang || !Object.keys(availableLangs).includes(lang)) {
-    lang = 'en';
+const getLangFromPath = () => window.location.pathname.match(/^\/(.*?)(\/|$)/)?.[1];
+const getLangFromCookie = (availableLangs: AVAILABLE_LANGS) => {
+  const locale =  document.cookie
+    .split(';')
+    .find((c) => c.trim().startsWith('Accept-Language'))
+    ?.split('=')
+    ?.[1];
+  return Object.keys(availableLangs).find(key => availableLangs[key] === locale)
+};
+
+export const initialize = (): InitData => {
+  const availableLangs = getAvailableLanguages();
+  let lang = getLangFromPath();
+
+  if (!lang || !Object.keys(availableLangs).includes(lang)) {
+    lang = getLangFromCookie(availableLangs) || 'en';
     const rest = window.location.href.replace(window.location.origin, '');
     window.location.href = window.location.origin + '/' + lang + rest;
     return {
@@ -33,6 +40,7 @@ export const initialize = (): InitData => {
       lang
     };
   }
+
   document.cookie = `Accept-Language=${availableLangs[lang]};path=/`;
   return {
     init: true,

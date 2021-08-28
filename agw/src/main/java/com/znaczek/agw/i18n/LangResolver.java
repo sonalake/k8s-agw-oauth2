@@ -28,25 +28,6 @@ public class LangResolver {
 
   private static final Pattern pathLangPattern = Pattern.compile("^/([a-z]{2})(/.*|$)");
 
-  public String resolvePathLang(ServerHttpRequest request) {
-    String lang = getFromPath(request);
-    if (lang != null && availableLangs.containsKey(lang)) {
-      return lang;
-    }
-
-    String cookieLang = getFromAccept(getCookieAccept(request));
-    if (cookieLang != null) {
-      return getLangKey(cookieLang);
-    }
-
-    String headerLang = getFromAccept(getHeaderAccept(request));
-    if (headerLang != null) {
-      return getLangKey(headerLang);
-    }
-
-    return "en";
-  }
-
   public String resolveISOLang(ServerHttpRequest request) {
     String pathLang = availableLangs.get(getFromPath(request));
     if (pathLang != null) {
