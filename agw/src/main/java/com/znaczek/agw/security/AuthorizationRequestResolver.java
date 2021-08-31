@@ -14,13 +14,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class CustomAuthorizationRequestResolver implements ServerOAuth2AuthorizationRequestResolver {
+public class AuthorizationRequestResolver implements ServerOAuth2AuthorizationRequestResolver {
 
   private final LangResolver langResolver;
 
   private ServerOAuth2AuthorizationRequestResolver defaultResolver;
 
-  public CustomAuthorizationRequestResolver(ReactiveClientRegistrationRepository repo, LangResolver langResolver) {
+  public AuthorizationRequestResolver(ReactiveClientRegistrationRepository repo, LangResolver langResolver) {
     this.langResolver = langResolver;
     this.defaultResolver = new DefaultServerOAuth2AuthorizationRequestResolver(repo);
   }
@@ -55,9 +55,5 @@ public class CustomAuthorizationRequestResolver implements ServerOAuth2Authoriza
       }
     );
   }
-
-
-
-
 
 }

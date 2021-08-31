@@ -15,8 +15,12 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-  private final CustomAuthorizationRequestResolver customAuthorizationRequestResolver;
+  public final static String AUTH_ENTRYPOINT_HEADER_NAME = "X-auth-entrypoint";
+
+  private final AuthorizationRequestResolver authorizationRequestResolver;
   private final LogoutSuccessHandler logoutSuccessHandler;
+  private final AuthenticationSuccessHandler authenticationSuccessHandler;
+  private final AuthenticationFailureHandler authenticationFailureHandler;
 
   @Bean
   public ServerOAuth2AuthorizedClientRepository authorizedClientRepository() {
@@ -25,15 +29,16 @@ public class SecurityConfig {
 
   @Bean
   public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-
     return http
       .authorizeExchange(ae -> ae
         .anyExchange()
         .permitAll()
       )
       .oauth2Login(l -> l
+        .authenticationFailureHandler(authenticationFailureHandler)
         .authorizedClientRepository(authorizedClientRepository())
-        .authorizationRequestResolver(customAuthorizationRequestResolver)
+        .authorizationRequestResolver(authorizationRequestResolver)
+        .authenticationSuccessHandler(authenticationSuccessHandler)
       )
       .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
       .logout(l -> l

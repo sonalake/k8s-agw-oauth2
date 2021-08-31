@@ -59,11 +59,11 @@ spec:
                 configMapKeyRef:
                   name: msagw-oauth
                   key: AUTHORIZATION_URI
-            - name: EMAIL_CLAIM
+            - name: NAME_CLAIM
               valueFrom:
                 configMapKeyRef:
                   name: msagw-oauth
-                  key: EMAIL_CLAIM
+                  key: NAME_CLAIM
             - name: ROLES_CLAIM
               valueFrom:
                 configMapKeyRef:

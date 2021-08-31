@@ -21,8 +21,8 @@ import java.util.stream.Stream;
 @Service
 public class UserService implements ReactiveOAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
-  @Value("${msagw.email-claim}")
-  private String emailClaim;
+  @Value("${msagw.name-claim}")
+  private String nameClaim;
 
   @Value("${msagw.roles-claim}")
   private String rolesClaim;
@@ -38,7 +38,10 @@ public class UserService implements ReactiveOAuth2UserService<OAuth2UserRequest,
       authorities = AuthorityUtils.commaSeparatedStringToAuthorityList((String)claims.get(rolesClaim));
       attributes = Stream.of(
         oAuth2UserRequest.getAdditionalParameters(),
-        Map.of("email", (String)claims.get(emailClaim))
+        Map.of(
+          "name", claims.get(nameClaim),
+          "roles", authorities
+        )
       )
         .flatMap(map -> map.entrySet().stream())
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
@@ -47,7 +50,7 @@ public class UserService implements ReactiveOAuth2UserService<OAuth2UserRequest,
       throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
     }
 
-    final OAuth2User user = new DefaultOAuth2User(authorities, attributes, "email");
+    final OAuth2User user = new DefaultOAuth2User(authorities, attributes, "name");
     return Mono.just(user);
   }
 }

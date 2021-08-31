@@ -1,4 +1,5 @@
-declare var SETTINGS: {AVAILABLE_LANGUAGES: string};
+import { restoreRedirectUrl } from './auth/after-redirect';
+
 
 interface InitData {
   init: boolean;
@@ -28,10 +29,19 @@ const getLangFromCookie = (availableLangs: AVAILABLE_LANGS) => {
 };
 
 export const initialize = (): InitData => {
+  const search = new URLSearchParams(window.location.search);
+  if (search.get('login') === 'true') {
+    restoreRedirectUrl();
+    return {
+      init: false,
+      lang: ''
+    };
+  }
+
   const availableLangs = getAvailableLanguages();
   let lang = getLangFromPath();
 
-  if (!lang || !Object.keys(availableLangs).includes(lang)) {
+   if (!lang || !Object.keys(availableLangs).includes(lang)) {
     lang = getLangFromCookie(availableLangs) || 'en';
     const rest = window.location.href.replace(window.location.origin, '');
     window.location.href = window.location.origin + '/' + lang + rest;

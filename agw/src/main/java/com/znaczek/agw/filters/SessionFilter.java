@@ -1,6 +1,7 @@
 package com.znaczek.agw.filters;
 
 
+import com.znaczek.agw.security.EmptyAuthentication;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -29,7 +30,7 @@ public class SessionFilter implements GlobalFilter {
       .zipWith(
         exchange.getPrincipal()
           .cast(Authentication.class)
-          .defaultIfEmpty(getEmptyAuthentication())
+          .defaultIfEmpty(new EmptyAuthentication())
       )
       .doOnNext(z -> {
         WebSession s = z.getT1();
@@ -44,44 +45,6 @@ public class SessionFilter implements GlobalFilter {
         }
         exchange.getResponse().addCookie(cb.build());
       }).then();
-  }
-
-  private Authentication getEmptyAuthentication() {
-    return new Authentication() {
-      @Override
-      public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-      }
-
-      @Override
-      public Object getCredentials() {
-        return null;
-      }
-
-      @Override
-      public Object getDetails() {
-        return null;
-      }
-
-      @Override
-      public Object getPrincipal() {
-        return null;
-      }
-
-      @Override
-      public boolean isAuthenticated() {
-        return false;
-      }
-
-      @Override
-      public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-      }
-
-      @Override
-      public String getName() {
-        return null;
-      }
-    };
   }
 
 }

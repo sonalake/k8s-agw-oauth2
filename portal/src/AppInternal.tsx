@@ -1,18 +1,36 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './App.scss';
 import { Link, NavLink, Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Users } from './conntainers/users/Users';
 import { Session } from './components/session/Session';
 import { Trans } from 'react-i18next';
+import { AuthContext } from './auth/auth.context';
+import { setRedirectUrl } from './auth/after-redirect';
+
+let didLogIn = false;
 
 export function AppInternal() {
   let { path } = useRouteMatch();
+  const {user, loginUrl, error} = useContext(AuthContext);
+
+  if (error && SETTINGS.AUTH) {
+    return <>'Could not fetch data. Please try again later.'</>
+  }
+  //We are causing side effect in render phase! That is acceptable, because if the condition that triggers that effect is true,
+  //we will leave the application.
+  if (!user && SETTINGS.AUTH && !didLogIn) {
+    setRedirectUrl();
+    window.location.href = loginUrl!;
+    didLogIn = true;
+    return null;
+  }
 
   return (
     <>
-      <Session/>
+      {SETTINGS.AUTH && <Session/>}
       <header>
-        <Link to="/app"><Trans>APP</Trans></Link>
+        <Link to="/app" className='brand'><Trans>APP</Trans></Link>
+        <p className='user-name'>{user?.name || 'NO_NAME'}</p>
         <form action="/logout" method="POST">
           <button type='submit'><Trans>LOGOUT</Trans></button>
         </form>

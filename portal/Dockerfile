@@ -1,13 +1,8 @@
-FROM node:12.18.3
+FROM nginx
 
+COPY ./build /usr/share/nginx/html
 
-COPY ["package.json", "package-lock.json", "./"]
-RUN ls
-RUN npm ci
-COPY . .
+COPY ./startup.sh /docker-entrypoint.d/90-startup.sh
+RUN chmod +x /docker-entrypoint.d/90-startup.sh
 
-RUN npm run build
-
-EXPOSE 3000
-
-CMD ["npm", "run", "server"]
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf

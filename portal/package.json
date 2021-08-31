@@ -37,8 +37,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "server": "ts-node --project server/tsconfig.json --transpile-only server/index.ts",
-    "server-dev": "export REACT_APP_AVAILABLE_LANGS='en;en-gb,br;pt-br' && nodemon --watch \"server/**\" --ext \"ts,json\" --ignore \"server/**/*.spec.ts\" --exec \"ts-node server/index.ts\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

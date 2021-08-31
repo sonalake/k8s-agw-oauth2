@@ -76,13 +76,4 @@ public class LangResolver {
     return availableLangs.containsValue(a[0]) ? a[0] : null;
   }
 
-  private String getLangKey(String value) {
-    for (var entry : availableLangs.entrySet()) {
-      if (entry.getValue().equals(value)) {
-        return entry.getKey();
-      }
-    }
-    return null;
-  }
-
 }
