@@ -42,8 +42,13 @@ spring:
             scope: ${OAUTH_SCOPE}
 msagw:
   host: ${APP_HOST}
-  hazelcast-dns: agw-hazelcast.default.svc.cluster.local
+  hazelcast:
+    dns: agw-hazelcast.default.svc.cluster.local
   name-claim: ${NAME_CLAIM}
   roles-claim: ${ROLES_CLAIM}
   session-timeout: ${SESSION_TIMEOUT}
   available-locales: ${AVAILABLE_LOCALES}
+  redis:
+    enabled: true
+    host: redis
+

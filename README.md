@@ -1,41 +1,42 @@
-### Start minikube
+#Minikube
+## Start minikube
 ```
-minikube start --kubernetes-version=v1.21.3 --vm-driver virtualbox --host-only-cidr 192.168.XX.XX/24
+npm run start
 ```
 
-### Check minikube host ip - should be used to reach host services e.g. Keycloak
+## Check minikube host ip - should be used to reach host services e.g. Keycloak in msagw-oauth ConfigMap (oauth-cm.yaml)
 ``` 
 minikube ssh
 ping host.minikube.internal
 ```
 
-### Change docker context
-#### local -> minikube context
+## Change docker context
+Images to be deployed in minikube must be build in minikube docker context
+
+### from local to minikube
 ```
 eval $(minikube docker-env)
 ```
-#### back from minikube -> local context
+### from minikube to local
 ```
 eval $(minikube docker-env -u)
 ```
 
-### Build AGW
+#Building the system
+Minikube must be up and running and docker context in the shell must be set to minikube [see](#from-local-to-minikube)
+
+## Build AGW
 ```
-./gradlew clean build
-cd agw
-docker build -f Dockerfile -t msagw-agw build/libs
+build:agw
 ```
 
-### Build portal
+## Build portal
 ```
-cd portal
-docker build -t msagw-portal .
+build:portal
 ```
 
-### Build users service
+## Build users service
 ```
-./gradlew clean build
-cd users
-docker build -f Dockerfile -t msagw-users build/libs
+build:users
 ```
 

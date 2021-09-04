@@ -22,8 +22,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client:2.5.4'
 	implementation 'com.hazelcast:hazelcast-all:4.2.2'
 	implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
-	implementation 'org.springframework.session:spring-session-hazelcast:2.5.2'
+	implementation 'org.springframework.session:spring-session-hazelcast'
 	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+
+  implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+  implementation 'org.springframework.session:spring-session-data-redis'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 }

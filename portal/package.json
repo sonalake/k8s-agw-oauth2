@@ -59,7 +59,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:9001",
+  "proxy": "http://localhost:9000",
   "devDependencies": {
     "@types/express": "^4.17.12"
   }

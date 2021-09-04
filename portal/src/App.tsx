@@ -26,7 +26,7 @@ function App({lang}: Props) {
               <Route exact path="/">
                 <div className='landing-page'>
                   <h1><Trans>WELCOME</Trans></h1>
-                  <a href={`/${lang}/app`}><Trans>GO_TO_APP</Trans></a>
+                  <Link to={`/app`}><Trans>GO_TO_APP</Trans></Link>
                 </div>
               </Route>
               <Route path="/app">

@@ -35,10 +35,10 @@ public class SecurityConfig {
         .permitAll()
       )
       .oauth2Login(l -> l
-        .authenticationFailureHandler(authenticationFailureHandler)
         .authorizedClientRepository(authorizedClientRepository())
         .authorizationRequestResolver(authorizationRequestResolver)
         .authenticationSuccessHandler(authenticationSuccessHandler)
+        .authenticationFailureHandler(authenticationFailureHandler)
       )
       .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
       .logout(l -> l
