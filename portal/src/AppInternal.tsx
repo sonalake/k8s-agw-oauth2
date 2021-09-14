@@ -16,6 +16,7 @@ export function AppInternal() {
   if (error && SETTINGS.AUTH) {
     return <>'Could not fetch data. Please try again later.'</>
   }
+
   //We are causing side effect in render phase! That is acceptable, because if the condition that triggers that effect is true,
   //we will leave the application.
   if (didLogIn) {

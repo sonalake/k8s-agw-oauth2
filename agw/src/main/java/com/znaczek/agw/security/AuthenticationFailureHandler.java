@@ -1,6 +1,5 @@
 package com.znaczek.agw.security;
 
-import com.znaczek.agw.DebugHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
@@ -14,6 +13,9 @@ import reactor.core.publisher.Mono;
 
 import java.net.URI;
 
+/**
+ * When authentication process fails we redirect user to "/" with feedback in `error` query parameter to inform user what happened.
+ */
 @Component
 @Slf4j
 @RequiredArgsConstructor
@@ -21,17 +23,11 @@ public class AuthenticationFailureHandler implements ServerAuthenticationFailure
 
   private ServerRedirectStrategy redirectStrategy = new DefaultServerRedirectStrategy();
 
-  private final DebugHelper debugHelper;
-
   @Override
   public Mono<Void> onAuthenticationFailure(WebFilterExchange webFilterExchange, AuthenticationException exception) {
     log.warn("Authentication failed: {}", exception.getMessage());
     URI location = UriComponentsBuilder.fromUriString("/").query("error=" + exception.getMessage()).build().toUri();
 
-    return webFilterExchange.getExchange()
-      .getSession()
-      .doOnNext(s -> debugHelper.help("AUTH_FAILURE", webFilterExchange.getExchange(), s))
-      .flatMap(a -> redirectStrategy.sendRedirect(webFilterExchange.getExchange(), location));
-//    return redirectStrategy.sendRedirect(webFilterExchange.getExchange(), location);
+    return redirectStrategy.sendRedirect(webFilterExchange.getExchange(), location);
   }
 }

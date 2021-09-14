@@ -18,6 +18,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Spring security for OAuth2 to get user details reaches user-info endpoint.
+ * Because in our case all user details are store in the token, we can can just pull them from it.
+ */
 @Service
 public class UserService implements ReactiveOAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
@@ -35,16 +39,8 @@ public class UserService implements ReactiveOAuth2UserService<OAuth2UserRequest,
     try {
       var jwt = JWTParser.parse(oAuth2UserRequest.getAccessToken().getTokenValue());
       var claims = jwt.getJWTClaimsSet().getClaims();
-      authorities = AuthorityUtils.commaSeparatedStringToAuthorityList((String)claims.get(rolesClaim));
-      attributes = Stream.of(
-        oAuth2UserRequest.getAdditionalParameters(),
-        Map.of(
-          "name", claims.get(nameClaim),
-          "roles", authorities
-        )
-      )
-        .flatMap(map -> map.entrySet().stream())
-        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+      authorities = extractAuthorities(claims);
+      attributes = extractAttributes(oAuth2UserRequest, claims, authorities);
     } catch (Exception e) {
       OAuth2Error oauth2Error = new OAuth2Error("invalid_token", "Couldn't parse the token: " + token, null);
       throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
@@ -52,5 +48,21 @@ public class UserService implements ReactiveOAuth2UserService<OAuth2UserRequest,
 
     final OAuth2User user = new DefaultOAuth2User(authorities, attributes, "name");
     return Mono.just(user);
+  }
+
+  private List<GrantedAuthority> extractAuthorities(Map<String,Object> claims) {
+    return AuthorityUtils.commaSeparatedStringToAuthorityList((String)claims.get(rolesClaim));
+  }
+
+  private Map<String, Object> extractAttributes(OAuth2UserRequest oAuth2UserRequest, Map<String,Object> claims, List<GrantedAuthority> authorities) {
+    return Stream.of(
+      oAuth2UserRequest.getAdditionalParameters(),
+      Map.of(
+        "name", claims.get(nameClaim),
+        "roles", authorities
+      )
+    )
+      .flatMap(map -> map.entrySet().stream())
+      .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 }

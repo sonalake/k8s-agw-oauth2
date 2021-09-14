@@ -13,6 +13,10 @@ import reactor.core.publisher.Mono;
 
 import java.net.URI;
 
+/**
+ * When user sends POST request to `/logout`, first the session is closed.
+ * After that user gets redirected to Identity Provider logout page to clear the SSO session there.
+ */
 @Component
 @RequiredArgsConstructor
 public class LogoutSuccessHandler implements ServerLogoutSuccessHandler {

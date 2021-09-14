@@ -22,6 +22,11 @@ public class SecurityConfig {
   private final AuthenticationSuccessHandler authenticationSuccessHandler;
   private final AuthenticationFailureHandler authenticationFailureHandler;
 
+  /**
+   * Most of the spring security classes that store data are already implemented using WebSession.
+   * The only one that is not is {@link ServerOAuth2AuthorizedClientRepository} so we define that bean ourselves.
+   * @return ServerOAuth2AuthorizedClientRepository
+   */
   @Bean
   public ServerOAuth2AuthorizedClientRepository authorizedClientRepository() {
     return new WebSessionServerOAuth2AuthorizedClientRepository();
@@ -30,6 +35,7 @@ public class SecurityConfig {
   @Bean
   public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
     return http
+      .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
       .authorizeExchange(ae -> ae
         .anyExchange()
         .permitAll()
@@ -40,7 +46,6 @@ public class SecurityConfig {
         .authenticationSuccessHandler(authenticationSuccessHandler)
         .authenticationFailureHandler(authenticationFailureHandler)
       )
-      .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
       .logout(l -> l
         .logoutSuccessHandler(logoutSuccessHandler)
       )

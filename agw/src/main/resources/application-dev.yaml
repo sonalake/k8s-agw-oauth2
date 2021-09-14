@@ -45,5 +45,4 @@ msagw:
   session-timeout: 1800
   available-locales: en;en-gb,br;pt-br
   redis:
-    enabled: true
     host: localhost

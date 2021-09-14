@@ -1,6 +1,5 @@
 package com.znaczek.agw.security;
 
-import com.znaczek.agw.DebugHelper;
 import com.znaczek.agw.i18n.LangResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
@@ -14,6 +13,11 @@ import reactor.core.publisher.Mono;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is responsible for adding `ui_locales` query parameter to the login page url, so that Identity Provider
+ * can display login page in appropriate language.
+ * Technically we use the default resolver and enhancing the result if any.
+ */
 @Component
 @Slf4j
 public class AuthorizationRequestResolver implements ServerOAuth2AuthorizationRequestResolver {
@@ -22,12 +26,9 @@ public class AuthorizationRequestResolver implements ServerOAuth2AuthorizationRe
 
   private ServerOAuth2AuthorizationRequestResolver defaultResolver;
 
-  private final DebugHelper debugHelper;
-
-  public AuthorizationRequestResolver(ReactiveClientRegistrationRepository repo, LangResolver langResolver, DebugHelper debugHelper) {
+  public AuthorizationRequestResolver(ReactiveClientRegistrationRepository repo, LangResolver langResolver) {
     this.langResolver = langResolver;
     this.defaultResolver = new DefaultServerOAuth2AuthorizationRequestResolver(repo);
-    this.debugHelper = debugHelper;
   }
 
   @Override
@@ -50,12 +51,8 @@ public class AuthorizationRequestResolver implements ServerOAuth2AuthorizationRe
 
   private Mono<OAuth2AuthorizationRequest> customizeAuthorizationRequest(Mono<OAuth2AuthorizationRequest> req, ServerWebExchange exchange) {
 
-    return exchange
-      .getSession()
-      .doOnNext(s -> debugHelper.help("RESOLVER", exchange, s))
-      .flatMap(a -> req)
+    return req
       .map(r -> {
-        log.info("RESOLVER state to be stored: {}", r.getState());
         Map<String, Object> extraParams = new HashMap<>(r.getAdditionalParameters());
         extraParams.put("ui_locales", langResolver.resolveISOLang(exchange.getRequest()));
 
