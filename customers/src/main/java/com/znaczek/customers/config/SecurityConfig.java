@@ -1,4 +1,4 @@
-package com.znaczek.users.config;
+package com.znaczek.customers.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,6 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
 import java.util.Collection;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity

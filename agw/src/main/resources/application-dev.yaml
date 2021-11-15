@@ -14,12 +14,12 @@ spring:
             - Path=/auth-certs
           filters:
             - RewritePath=/auth-certs, /auth/realms/msagw/protocol/openid-connect/certs
-        - id: users
+        - id: customers
           uri: http://localhost:9001
           predicates:
-            - Path=/api/users/**
+            - Path=/api/customers/**
           filters:
-            - RewritePath=/api/users, /
+            - RewritePath=/api/customers, /
         - id: portal
           uri: http://localhost:3000
           predicates:
@@ -43,6 +43,5 @@ msagw:
   roles-claim: roles
   host: http://localhost:9000
   session-timeout: 1800
-  available-locales: en;en-gb,br;pt-br
   redis:
     host: localhost

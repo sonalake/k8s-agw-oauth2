@@ -3,8 +3,8 @@ kind: Service
 metadata:
   namespace: default
   labels:
-    app-service: users
-  name: users
+    app-service: customers
+  name: customers
 spec:
   type: ClusterIP
   ports:
@@ -13,4 +13,4 @@ spec:
       targetPort: 9001
       protocol: TCP
   selector:
-    app-service: users
+    app-service: customers

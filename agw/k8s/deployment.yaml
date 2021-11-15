@@ -34,11 +34,6 @@ spec:
                 configMapKeyRef:
                   name: msagw-system
                   key: SESSION_TIMEOUT
-            - name: AVAILABLE_LOCALES
-              valueFrom:
-                configMapKeyRef:
-                  name: msagw-system
-                  key: AVAILABLE_LOCALES
             - name: JWKS_HOST
               valueFrom:
                 configMapKeyRef:

@@ -3,22 +3,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: default
-  name: users
+  name: customers
   labels:
-    app-service: users
+    app-service: customers
 spec:
   selector:
     matchLabels:
-      app-service: users
+      app-service: customers
   replicas: 1
   template:
     metadata:
       labels:
-        app-service: users
+        app-service: customers
     spec:
       containers:
-        - name: users
-          image: msagw-users
+        - name: customers
+          image: msagw-customers
           imagePullPolicy: Never
           ports:
             - name: http

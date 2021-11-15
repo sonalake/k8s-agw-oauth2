@@ -1,6 +1,5 @@
 package com.znaczek.agw.security;
 
-import com.znaczek.agw.i18n.LangResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -23,8 +22,6 @@ public class LogoutSuccessHandler implements ServerLogoutSuccessHandler {
 
   @Value("${spring.security.oauth2.client.provider.iam.logout-uri}")
   private String logoutUrl;
-
-  private final LangResolver langResolver;
 
   @Override
   public Mono<Void> onLogoutSuccess(WebFilterExchange webExchange, Authentication authentication) {

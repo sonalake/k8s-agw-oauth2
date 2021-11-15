@@ -14,12 +14,12 @@ spring:
             - Path=/auth-certs
           filters:
             - RewritePath=/auth-certs, ${JWKS_PATH}
-        - id: users
-          uri: http://users:9001
+        - id: customers
+          uri: http://customers:9001
           predicates:
-            - Path=/api/users/**
+            - Path=/api/customers/**
           filters:
-            - RewritePath=/api/users, /
+            - RewritePath=/api/customers, /
         - id: portal
           uri: http://portal:80
           predicates:
@@ -45,7 +45,6 @@ msagw:
   name-claim: ${NAME_CLAIM}
   roles-claim: ${ROLES_CLAIM}
   session-timeout: ${SESSION_TIMEOUT}
-  available-locales: ${AVAILABLE_LOCALES}
   redis:
     host: redis
 

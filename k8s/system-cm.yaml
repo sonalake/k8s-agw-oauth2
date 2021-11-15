@@ -5,4 +5,3 @@ metadata:
 data:
   APP_HOST: https://k8s.test
   SESSION_TIMEOUT: "1800"
-  AVAILABLE_LOCALES: en;en-gb,br;pt-br

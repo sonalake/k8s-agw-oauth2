@@ -1,9 +1,10 @@
 import React from 'react';
-import './App.scss';
-import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+import './App.scss';
 import { AppInternal } from './AppInternal';
-import { Trans } from 'react-i18next';
+import { Customers } from './conntainers/customers/Customers';
+import { NotFound } from './conntainers/not-found/NotFoun';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -13,34 +14,35 @@ const queryClient = new QueryClient({
     }
   }
 })
-interface Props {
-  lang: string;
-}
 
-function App({lang}: Props) {
+function App() {
   return (
     <div className='app'>
-        <QueryClientProvider client={queryClient}>
-          <BrowserRouter basename={lang}>
-            <Switch>
-              <Route exact path="/">
-                <div className='landing-page'>
-                  <h1><Trans>WELCOME</Trans></h1>
-                  <Link to={`/app`}><Trans>GO_TO_APP</Trans></Link>
-                </div>
-              </Route>
-              <Route path="/app">
-                <AppInternal/>
-              </Route>
-              <Route>
-                <div className="landing-page">
-                  <h1><Trans>404</Trans></h1>
-                  <Link to='/'><Trans>GO_TO_MAIN</Trans></Link>
-                </div>
-              </Route>
-            </Switch>
-          </BrowserRouter>
-        </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/">
+              <div className='landing-page'>
+                <h1>Welcome</h1>
+                <Link to='/dashboard'>Go to app</Link>
+              </div>
+            </Route>
+            <Route exact path={`/dashboard`}>
+              <AppInternal>
+                <h1>Welcome</h1>
+              </AppInternal>
+            </Route>
+            <Route exact path={`/customers`}>
+              <AppInternal>
+                <Customers />
+              </AppInternal>
+            </Route>
+            <Route>
+              <NotFound />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </QueryClientProvider>
     </div>
   );
 }

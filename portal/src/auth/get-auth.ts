@@ -14,7 +14,7 @@ export const getAuth = async (): Promise<AuthData> => {
   let whoami;
   try {
     whoami = await fetch('/whoami');
-  } catch(e) {
+  } catch (e) {
     return {
       user: undefined,
       loginUrl: undefined,

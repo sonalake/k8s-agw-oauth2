@@ -17,7 +17,6 @@ public class SecurityConfig {
 
   public final static String AUTH_ENTRYPOINT_HEADER_NAME = "X-auth-entrypoint";
 
-  private final AuthorizationRequestResolver authorizationRequestResolver;
   private final LogoutSuccessHandler logoutSuccessHandler;
   private final AuthenticationSuccessHandler authenticationSuccessHandler;
   private final AuthenticationFailureHandler authenticationFailureHandler;
@@ -42,7 +41,6 @@ public class SecurityConfig {
       )
       .oauth2Login(l -> l
         .authorizedClientRepository(authorizedClientRepository())
-        .authorizationRequestResolver(authorizationRequestResolver)
         .authenticationSuccessHandler(authenticationSuccessHandler)
         .authenticationFailureHandler(authenticationFailureHandler)
       )

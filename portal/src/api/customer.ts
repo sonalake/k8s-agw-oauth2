@@ -1,4 +1,4 @@
-export interface User {
+export interface Customer {
   id: string;
   name: string;
 }

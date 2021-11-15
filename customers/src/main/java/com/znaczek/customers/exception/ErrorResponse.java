@@ -1,4 +1,4 @@
-package com.znaczek.users.exception;
+package com.znaczek.customers.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
