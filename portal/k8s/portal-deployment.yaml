@@ -25,10 +25,5 @@ spec:
               containerPort: 3000
               protocol: TCP
           env:
-            - name: JWKS_URI
-              valueFrom:
-                configMapKeyRef:
-                  name: msagw-oauth
-                  key: JWKS_URI
             - name: REACT_APP_AUTH
               value: "true"

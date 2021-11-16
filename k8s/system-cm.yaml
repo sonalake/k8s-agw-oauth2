@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: msagw-system
 data:
-  APP_HOST: https://k8s.test
+  APP_HOST: http://k8s.test
   SESSION_TIMEOUT: "1800"

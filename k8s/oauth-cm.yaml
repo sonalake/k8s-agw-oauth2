@@ -8,7 +8,7 @@ data:
   TOKEN_URI: http://192.168.99.1:8080/auth/realms/msagw/protocol/openid-connect/token
   JWKS_PATH: /auth/realms/msagw/protocol/openid-connect/certs
   AUTHORIZATION_URI: http://192.168.99.1:8080/auth/realms/msagw/protocol/openid-connect/auth
-  LOGOUT_URI: http://192.168.99.1:8080/auth/realms/msagw/protocol/openid-connect/logout?redirect_uri=https://k8s.test
+  LOGOUT_URI: http://192.168.99.1:8080/auth/realms/msagw/protocol/openid-connect/logout?redirect_uri=http://k8s.test
   CLIENT_ID: App
   CLIENT_SECRET: f4f76724-2a84-4cd8-83e5-5a5af23a8418
   OAUTH_SCOPE: ""
